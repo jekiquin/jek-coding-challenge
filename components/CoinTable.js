@@ -18,7 +18,6 @@ export default function CoinTable() {
 
 	const displayCoinSummary = useMemo(() => {
 		if (!coins) return;
-		console.log(coins);
 		return coins.map((coin) => <CoinRow key={coin.id} coin={coin} />);
 	}, [coins]);
 
