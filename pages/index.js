@@ -1,8 +1,8 @@
 import Head from 'next/head';
-import { useCoins } from '../custom-hooks/useCoins';
+import { useCoinsContext } from '../context/CoinProvider';
 
 export default function Home() {
-	const { coins, isLoading, isError } = useCoins();
+	const coins = useCoinsContext();
 
 	return (
 		<div>
