@@ -6,13 +6,13 @@ export const useUnit = () => {
 	return useContext(UnitContext);
 };
 
-const UNITS = {
+export const UNITS = {
 	USD: 'USD',
 	CAD: 'CAD'
 };
 
 export default function UnitProvider({ children }) {
-	const [unit, setUnit] = useState(UNITS.USD);
+	const [unit, setUnit] = useState(UNITS.CAD);
 
 	return <UnitContext.Provider value={[unit, setUnit]}>{children}</UnitContext.Provider>;
 }
