@@ -15,13 +15,14 @@ const fetcher = async (url) => {
 };
 
 export default function CoinsProvider({ children }) {
-	const [coins, setCoins] = useState(null);
 	const [unit] = useUnit();
-	const { data } = useSWR(`api/get-coins?unit=${unit}`, fetcher);
+	const { data, error } = useSWR(`api/get-coins?unit=${unit}`, fetcher);
 
-	useEffect(() => {
-		setCoins(data);
-	}, [data]);
+	const value = {
+		coins: data,
+		isLoading: !data && !error,
+		isError: error
+	};
 
-	return <CoinsContext.Provider value={[coins, setCoins]}>{children}</CoinsContext.Provider>;
+	return <CoinsContext.Provider value={value}>{children}</CoinsContext.Provider>;
 }
