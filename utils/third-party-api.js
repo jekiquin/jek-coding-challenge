@@ -14,5 +14,5 @@ export const getTopCoins = async () => {
 	const response = await instance.get(
 		`/cryptocurrency/listings/latest?sort_dir=${SORT_DIR}&limit=${LIMIT}`
 	);
-	return response;
+	return response.data;
 };
