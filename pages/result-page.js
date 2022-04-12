@@ -13,7 +13,7 @@ export default function Result() {
 
 	useEffect(() => {
 		const rate = Math.random();
-		const timer = Math.random() * 3;
+		const timer = Math.random() * 3000;
 		const timeOut = setTimeout(() => {
 			if (rate > FAILRATE) {
 				setIsSuccess(true);

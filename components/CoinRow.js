@@ -23,7 +23,7 @@ export default function CoinRow({ coin, setShowModal }) {
 				{value}
 			</td>
 		));
-	}, [coin]);
+	}, [coin, unit]);
 
 	const handleClick = () => {
 		setSelectedCoin(coin);
