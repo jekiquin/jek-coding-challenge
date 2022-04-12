@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Loading from '../components/Loading';
 import { useCoinContext } from '../context/CoinProvider';
 
-const FAILRATE = 0.8;
+const FAILRATE = 0.2;
 
 export default function Result() {
 	const [isSuccess, setIsSuccess] = useState(false);
