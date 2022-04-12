@@ -1,10 +1,10 @@
 import { Fragment, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import validator from 'validator';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useCoinContext } from '../context/CoinProvider';
 import AmountCounter from '../components/AmountCounter';
 import Loading from '../components/Loading';
-import { useRouter } from 'next/router';
 
 export default function Purchase() {
 	const router = useRouter();
@@ -28,7 +28,9 @@ export default function Purchase() {
 		address: 'text'
 	};
 
-	const initialValues = {
+	const sessionValues = JSON.parse(sessionStorage.getItem('form'));
+
+	const initialValues = sessionValues || {
 		name: '',
 		email: '',
 		number: '',
@@ -72,8 +74,9 @@ export default function Purchase() {
 	};
 
 	const handleSubmit = (values, { setSubmitting }) => {
-		sessionStorage.clear();
+		sessionStorage.setItem('form', JSON.stringify(values));
 		setSubmitting(false);
+		router.push('/result-page');
 	};
 
 	const handleReset = () => {
