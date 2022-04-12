@@ -1,11 +1,12 @@
 import { useMemo } from 'react';
-import { useCoinsContext } from '../context/CoinProvider';
+import { useCoin } from '../custom-hook/useCoin';
 import { useUnit } from '../context/UnitProvider';
 import CoinRow from './CoinRow';
 import Loading from './Loading';
 
 export default function CoinTable() {
-	const { coins, isLoading } = useCoinsContext();
+	const [unit] = useUnit();
+	const { coins, isLoading } = useCoin(unit);
 
 	const displayTableHeaders = useMemo(() => {
 		const tableHeaders = ['Name', 'Price', '24h%', '7d%', 'Market Cap'];
@@ -17,9 +18,9 @@ export default function CoinTable() {
 	}, []);
 
 	const displayCoinSummary = useMemo(() => {
-		if (!coins) return;
+		if (isLoading) return;
 		return coins.map((coin) => <CoinRow key={coin.id} coin={coin} />);
-	}, [coins]);
+	}, [coins, isLoading]);
 
 	return (
 		<table className="w-full border-collapse table-fixed">

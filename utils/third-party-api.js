@@ -10,7 +10,7 @@ const instance = axios.create({
 	}
 });
 
-export const getTopCoins = async (unit) => {
+export const getTopCoins = async (unit = 'USD') => {
 	const response = await instance.get(
 		`/cryptocurrency/listings/latest?sort_dir=${SORT_DIR}&limit=${LIMIT}&convert=${unit}`
 	);
