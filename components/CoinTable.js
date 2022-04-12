@@ -1,13 +1,21 @@
-import React, { useMemo, useState } from 'react';
-import { useCoins } from '../custom-hook/coins-hook';
+import React, { useMemo, useState, useEffect } from 'react';
+import axios from 'axios';
 import { useUnitContext } from '../context/UnitProvider';
 import CoinRow from './CoinRow';
 import CoinModal from './CoinModal';
 
 function CoinTable() {
+	const [coins, setCoins] = useState(null);
 	const [showModal, setShowModal] = useState(false);
 	const { unit } = useUnitContext();
-	const { coins, isLoading } = useCoins(unit);
+
+	useEffect(() => {
+		const getCoins = async (unit) => {
+			const response = await axios.get(`/api/get-coins?unit=${unit}`);
+			setCoins(response.data);
+		};
+		getCoins(unit);
+	}, [unit]);
 
 	const displayTableHeaders = useMemo(() => {
 		const tableHeaders = ['Name', 'Price', '24h%', '7d%', 'Market Cap'];
@@ -19,11 +27,11 @@ function CoinTable() {
 	}, []);
 
 	const displayCoinSummary = useMemo(() => {
-		if (isLoading) return;
+		if (!coins) return;
 		return coins.map((coin) => (
 			<CoinRow key={coin.id} coin={coin} setShowModal={setShowModal} />
 		));
-	}, [coins, isLoading]);
+	}, [coins]);
 
 	return (
 		<>

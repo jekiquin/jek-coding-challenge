@@ -1,19 +1,17 @@
 import Head from 'next/head';
 import CoinTable from '../components/CoinTable';
-import CoinProvider from '../context/CoinProvider';
+import Header from '../components/Header';
 
 export default function Home() {
 	return (
-		<div className="container mx-auto px-4">
+		<div>
 			<Head>
 				<title>BalloonBox Coding Challenge</title>
 				<meta name="description" content="Technical Challenge from BalloonBox" />
 			</Head>
-
-			<main>
-				<CoinProvider>
-					<CoinTable />
-				</CoinProvider>
+			<Header />
+			<main className="container mx-auto px-4">
+				<CoinTable />
 			</main>
 		</div>
 	);

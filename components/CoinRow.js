@@ -5,8 +5,8 @@ import { useUnitContext } from '../context/UnitProvider';
 import { toCurrency, toFinancial } from '../utils/parser';
 
 export default function CoinRow({ coin, setShowModal }) {
-	const { unit } = useUnitContext();
 	const { setSelectedCoin } = useCoinContext();
+	const { unit } = useUnitContext();
 
 	const displayInformation = useMemo(() => {
 		const { name, quote } = coin;
@@ -23,10 +23,10 @@ export default function CoinRow({ coin, setShowModal }) {
 				{value}
 			</td>
 		));
-	}, [coin, unit]);
+	}, [coin]);
 
 	const handleClick = () => {
-		setSelectedCoin(coin.id);
+		setSelectedCoin(coin);
 		setShowModal(true);
 	};
 

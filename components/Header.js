@@ -1,8 +1,8 @@
-import { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { UNITS, useUnitContext } from '../context/UnitProvider';
 
-export default function Header() {
+function Header() {
 	const [unitChanged, setUnitChanged] = useState(false);
 	const { setUnit } = useUnitContext();
 
@@ -41,3 +41,5 @@ export default function Header() {
 		</header>
 	);
 }
+
+export default React.memo(Header);

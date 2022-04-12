@@ -1,8 +1,26 @@
-import { Fragment } from 'react';
-import { useFormikContext, Formik, Form, Field, ErrorMessage } from 'formik';
+import { Fragment, useEffect } from 'react';
 import validator from 'validator';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useCoinContext } from '../context/CoinProvider';
+import AmountCounter from '../components/AmountCounter';
+import Loading from '../components/Loading';
+import { useRouter } from 'next/router';
 
 export default function Purchase() {
+	const router = useRouter();
+	const { selectedCoin, setSelectedCoin, amount, setAmount } = useCoinContext();
+
+	useEffect(() => {
+		if (!selectedCoin) {
+			setSelectedCoin(JSON.parse(sessionStorage.getItem('purchase')));
+			setAmount(JSON.parse(sessionStorage.getItem('amount')));
+		}
+	}, []);
+
+	if (!selectedCoin || !amount) {
+		return <Loading />;
+	}
+
 	const formFields = {
 		name: 'text',
 		email: 'email',
@@ -54,19 +72,35 @@ export default function Purchase() {
 	};
 
 	const handleSubmit = (values, { setSubmitting }) => {
-		console.log(values);
+		sessionStorage.clear();
 		setSubmitting(false);
+	};
+
+	const handleReset = () => {
+		sessionStorage.clear();
+		setAmount(0);
+		setSelectedCoin(null);
+		router.push('/');
 	};
 
 	return (
 		<main className="container px-4 mx-auto">
 			<h1>Please fill out the form below</h1>
-			<Formik initialValues={initialValues} validate={validate} onSubmit={handleSubmit}>
+			<p>Name: {selectedCoin.name}</p>
+			<AmountCounter />
+			<Formik
+				initialValues={initialValues}
+				validate={validate}
+				onSubmit={handleSubmit}
+				onReset={handleReset}>
 				{({ isSubmitting }) => (
 					<Form className="flex flex-col">
 						{displayFormFields}
 						<button type="submit" disabled={isSubmitting}>
 							Submit
+						</button>
+						<button type="reset" disabled={isSubmitting}>
+							Cancel
 						</button>
 					</Form>
 				)}
