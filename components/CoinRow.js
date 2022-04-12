@@ -18,11 +18,7 @@ export default function CoinRow({ coin, setShowModal }) {
 			toFinancial(percent_change_7d),
 			toCurrency(unit, market_cap)
 		];
-		return values.map((value, idx) => (
-			<td key={idx} className="p-4 ">
-				{value}
-			</td>
-		));
+		return values.map((value, idx) => <p key={idx}>{value}</p>);
 	}, [coin]);
 
 	const handleClick = () => {
@@ -31,9 +27,11 @@ export default function CoinRow({ coin, setShowModal }) {
 	};
 
 	return (
-		<tr className="border-b-2 cursor-pointer hover:bg-slate-200" onClick={handleClick}>
+		<div
+			className="border-b-2 p-4 min-w-table grid grid-cols-5 cursor-pointer hover:bg-slate-200"
+			onClick={handleClick}>
 			{displayInformation}
-		</tr>
+		</div>
 	);
 }
 

@@ -20,9 +20,9 @@ function CoinTable() {
 	const displayTableHeaders = useMemo(() => {
 		const tableHeaders = ['Name', 'Price', '24h%', '7d%', 'Market Cap'];
 		return tableHeaders.map((header, idx) => (
-			<td key={idx} className="font-medium px-4">
+			<p key={idx} className="font-medium">
 				{header}
-			</td>
+			</p>
 		));
 	}, []);
 
@@ -35,12 +35,12 @@ function CoinTable() {
 
 	return (
 		<>
-			<table className="w-full border-collapse table-fixed">
-				<thead className="border-b-4">
-					<tr>{displayTableHeaders}</tr>
-				</thead>
-				<tbody>{displayCoinSummary}</tbody>
-			</table>
+			<section className="w-full  overflow-x-auto">
+				<div className="border-b-4 grid grid-cols-5 px-4 min-w-table">
+					{displayTableHeaders}
+				</div>
+				{displayCoinSummary}
+			</section>
 			{showModal && <CoinModal setShowModal={setShowModal} />}
 		</>
 	);
