@@ -1,9 +1,9 @@
 import { useState, useMemo, useEffect } from 'react';
-import { UNITS, useUnit } from '../context/UnitProvider';
+import { UNITS, useUnitContext } from '../context/UnitProvider';
 
 export default function Header() {
 	const [unitChanged, setUnitChanged] = useState(false);
-	const [, setUnit] = useUnit();
+	const { setUnit } = useUnitContext();
 
 	useEffect(() => {
 		if (unitChanged) {

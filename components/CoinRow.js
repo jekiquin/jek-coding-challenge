@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types';
 import { useMemo } from 'react';
-import { useUnit } from '../context/UnitProvider';
+import { useCoinContext } from '../context/CoinProvider';
+import { useUnitContext } from '../context/UnitProvider';
 import { toCurrency, toFinancial } from '../utils/parser';
 
 export default function CoinRow({ coin }) {
-	const [unit] = useUnit();
+	const { unit } = useUnitContext();
+	const { setSelectedCoin, setShowModal } = useCoinContext();
+
 	const displayInformation = useMemo(() => {
 		const { name, quote } = coin;
 		const { price, percent_change_24h, percent_change_7d, market_cap } = quote[unit];
@@ -22,7 +25,16 @@ export default function CoinRow({ coin }) {
 		));
 	}, [coin, unit]);
 
-	return <tr className="border-b-2 cursor-pointer hover:bg-slate-200">{displayInformation}</tr>;
+	const handleClick = () => {
+		setSelectedCoin(coin.id);
+		setShowModal(true);
+	};
+
+	return (
+		<tr className="border-b-2 cursor-pointer hover:bg-slate-200" onClick={handleClick}>
+			{displayInformation}
+		</tr>
+	);
 }
 
 CoinRow.propTypes = {

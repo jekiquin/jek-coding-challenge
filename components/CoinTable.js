@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
-import { useCoins } from '../custom-hook/useCoins';
-import { useUnit } from '../context/UnitProvider';
+import { useCoins } from '../custom-hook/coins-hook';
+import { useUnitContext } from '../context/UnitProvider';
 import CoinRow from './CoinRow';
-import Loading from './Loading';
+import CoinModal from './CoinModal';
 
 export default function CoinTable() {
-	const [unit] = useUnit();
+	const { unit } = useUnitContext();
 	const { coins, isLoading } = useCoins(unit);
 
 	const displayTableHeaders = useMemo(() => {

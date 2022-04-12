@@ -1,5 +1,7 @@
 import Head from 'next/head';
 import CoinTable from '../components/CoinTable';
+import CoinModal from '../components/CoinModal';
+import CoinProvider from '../context/CoinProvider';
 
 export default function Home() {
 	return (
@@ -10,7 +12,10 @@ export default function Home() {
 			</Head>
 
 			<main>
-				<CoinTable />
+				<CoinProvider>
+					<CoinTable />
+					<CoinModal />
+				</CoinProvider>
 			</main>
 		</div>
 	);
