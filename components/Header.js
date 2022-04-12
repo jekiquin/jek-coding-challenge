@@ -3,7 +3,7 @@ import { UNITS, useUnit } from '../context/UnitProvider';
 
 export default function Header() {
 	const [unitChanged, setUnitChanged] = useState(false);
-	const [unit, setUnit] = useUnit();
+	const [, setUnit] = useUnit();
 
 	useEffect(() => {
 		if (unitChanged) {
