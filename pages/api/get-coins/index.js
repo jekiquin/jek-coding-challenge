@@ -1,4 +1,4 @@
-import { getTopCoins } from '../../utils/third-party-api';
+import { getTopCoins } from '../../../utils/third-party-api';
 
 export default async function handler(req, res) {
 	const { unit } = req.query;
