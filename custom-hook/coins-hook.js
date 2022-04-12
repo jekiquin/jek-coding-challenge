@@ -14,3 +14,12 @@ export function useCoins(unit) {
 		isError: error
 	};
 }
+
+export function useSelectedCoin(unit, id) {
+	const { data, error } = useSWR(`/api/get-coins/${id}?unit=${unit}`, fetcher);
+	return {
+		coin: data,
+		isLoading: !data && !error,
+		isError: error
+	};
+}

@@ -1,11 +1,13 @@
 import { useMemo } from 'react';
 import { useCoins } from '../custom-hook/coins-hook';
 import { useUnitContext } from '../context/UnitProvider';
+import { useCoinContext } from '../context/CoinProvider';
 import CoinRow from './CoinRow';
 import CoinModal from './CoinModal';
 
 export default function CoinTable() {
 	const { unit } = useUnitContext();
+	const { showModal } = useCoinContext();
 	const { coins, isLoading } = useCoins(unit);
 
 	const displayTableHeaders = useMemo(() => {
@@ -23,11 +25,14 @@ export default function CoinTable() {
 	}, [coins, isLoading]);
 
 	return (
-		<table className="w-full border-collapse table-fixed">
-			<thead className="border-b-4">
-				<tr>{displayTableHeaders}</tr>
-			</thead>
-			<tbody>{displayCoinSummary}</tbody>
-		</table>
+		<>
+			<table className="w-full border-collapse table-fixed">
+				<thead className="border-b-4">
+					<tr>{displayTableHeaders}</tr>
+				</thead>
+				<tbody>{displayCoinSummary}</tbody>
+			</table>
+			{showModal && <CoinModal />}
+		</>
 	);
 }

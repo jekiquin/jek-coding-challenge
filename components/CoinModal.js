@@ -1,24 +1,28 @@
-import { useEffect } from 'react';
 import { useCoinContext } from '../context/CoinProvider';
+import { useUnitContext } from '../context/UnitProvider';
+import { useSelectedCoin } from '../custom-hook/coins-hook';
+import AddAmountForm from './AddAmountForm';
+import ModalClose from './ModalClose';
+import SelectedCoinInformation from './SelectedCoinInformation';
 
 export default function CoinModal() {
-	const { selectedCoin, showModal, setShowModal } = useCoinContext();
+	const { selectedCoin } = useCoinContext();
+	const { unit } = useUnitContext();
+	const { coin, isLoading } = useSelectedCoin(unit, selectedCoin);
 
-	const handleClick = () => {
-		setShowModal(false);
-	};
-
-	return showModal ? (
+	return (
 		<section className="absolute top-0 left-0 w-full h-full bg-modal flex justify-center items-center">
-			<article className="relative bg-white h-3/4 w-3/4">
-				<button
-					className="absolute top-2 right-2 bg-slate-400 py-2 px-4 rounded-md hover:bg-slate-600 hover:scale-125 transition-all"
-					onClick={handleClick}>
-					X
-				</button>
+			<article className="relative bg-white w-3/4 pt-12 pb-8 px-8">
+				<ModalClose />
+				{isLoading ? (
+					<h1>Loading</h1>
+				) : (
+					<>
+						<SelectedCoinInformation coin={coin[selectedCoin]} />
+						<AddAmountForm />
+					</>
+				)}
 			</article>
 		</section>
-	) : (
-		<></>
 	);
 }
