@@ -6,13 +6,8 @@ const fetcher = async (url) => {
 	return response.data;
 };
 
-const url = {
-	test: '/api/test',
-	production: '/api/get-coins'
-};
-
 export function useCoins(unit) {
-	const { data, error } = useSWR(`${url.test}?unit=${unit}`, fetcher);
+	const { data, error } = useSWR(`/api/get-coins?unit=${unit}`, fetcher);
 	return {
 		coins: data,
 		isLoading: !data && !error,
