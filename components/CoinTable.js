@@ -1,12 +1,12 @@
 import { useMemo } from 'react';
-import { useCoin } from '../custom-hook/useCoin';
+import { useCoins } from '../custom-hook/useCoins';
 import { useUnit } from '../context/UnitProvider';
 import CoinRow from './CoinRow';
 import Loading from './Loading';
 
 export default function CoinTable() {
 	const [unit] = useUnit();
-	const { coins, isLoading } = useCoin(unit);
+	const { coins, isLoading } = useCoins(unit);
 
 	const displayTableHeaders = useMemo(() => {
 		const tableHeaders = ['Name', 'Price', '24h%', '7d%', 'Market Cap'];

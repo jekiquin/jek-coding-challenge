@@ -5,7 +5,6 @@ import { toCurrency, toFinancial } from '../utils/parser';
 
 export default function CoinRow({ coin }) {
 	const [unit] = useUnit();
-
 	const displayInformation = useMemo(() => {
 		const { name, quote } = coin;
 		const { price, percent_change_24h, percent_change_7d, market_cap } = quote[unit];
