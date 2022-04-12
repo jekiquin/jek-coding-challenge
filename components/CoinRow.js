@@ -4,9 +4,9 @@ import { useCoinContext } from '../context/CoinProvider';
 import { useUnitContext } from '../context/UnitProvider';
 import { toCurrency, toFinancial } from '../utils/parser';
 
-export default function CoinRow({ coin }) {
+export default function CoinRow({ coin, setShowModal }) {
 	const { unit } = useUnitContext();
-	const { setSelectedCoin, setShowModal } = useCoinContext();
+	const { setSelectedCoin } = useCoinContext();
 
 	const displayInformation = useMemo(() => {
 		const { name, quote } = coin;
@@ -38,5 +38,6 @@ export default function CoinRow({ coin }) {
 }
 
 CoinRow.propTypes = {
-	coin: PropTypes.object.isRequired
+	coin: PropTypes.object.isRequired,
+	setShowModal: PropTypes.func.isRequired
 };

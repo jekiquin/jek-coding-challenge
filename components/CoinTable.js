@@ -1,13 +1,12 @@
-import { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useCoins } from '../custom-hook/coins-hook';
 import { useUnitContext } from '../context/UnitProvider';
-import { useCoinContext } from '../context/CoinProvider';
 import CoinRow from './CoinRow';
 import CoinModal from './CoinModal';
 
-export default function CoinTable() {
+function CoinTable() {
+	const [showModal, setShowModal] = useState(false);
 	const { unit } = useUnitContext();
-	const { showModal } = useCoinContext();
 	const { coins, isLoading } = useCoins(unit);
 
 	const displayTableHeaders = useMemo(() => {
@@ -21,7 +20,9 @@ export default function CoinTable() {
 
 	const displayCoinSummary = useMemo(() => {
 		if (isLoading) return;
-		return coins.map((coin) => <CoinRow key={coin.id} coin={coin} />);
+		return coins.map((coin) => (
+			<CoinRow key={coin.id} coin={coin} setShowModal={setShowModal} />
+		));
 	}, [coins, isLoading]);
 
 	return (
@@ -32,7 +33,9 @@ export default function CoinTable() {
 				</thead>
 				<tbody>{displayCoinSummary}</tbody>
 			</table>
-			{showModal && <CoinModal />}
+			{showModal && <CoinModal setShowModal={setShowModal} />}
 		</>
 	);
 }
+
+export default React.memo(CoinTable);

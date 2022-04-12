@@ -1,31 +1,35 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useRouter } from 'next/router';
+import { useCoinContext } from '../context/CoinProvider';
 
 export default function AddAmountForm() {
-	const validate = (values) => {
-		const errors = {};
-		if (!values.amount || Number(values.amount) <= 0) {
-			errors.amount = 'Amount should be not lower than 1!';
-		}
-		return errors;
+	const { amount, setAmount } = useCoinContext();
+	const router = useRouter();
+
+	const handleIncrement = () => {
+		setAmount((prevAmount) => ++prevAmount);
 	};
 
-	const handleSubmit = (values, { setSubmitting }) => {
-		console.log(values);
-		setSubmitting(false);
+	const handleDecrement = () => {
+		if (amount !== 0) {
+			setAmount((prevAmount) => --prevAmount);
+		}
+	};
+
+	const handleSubmit = () => {
+		router.push('/purchase');
 	};
 
 	return (
-		<Formik initialValues={{ amount: '1' }} validate={validate} onSubmit={handleSubmit}>
-			{({ isSubmitting }) => (
-				<Form>
-					<Field type="number" step="1" name="amount" />
+		<div>
+			<div className="flex">
+				<button onClick={handleDecrement}>-</button>
+				<p>{amount}</p>
+				<button onClick={handleIncrement}>+</button>
+			</div>
 
-					<button type="submit" disabled={isSubmitting}>
-						Purchase
-					</button>
-					<ErrorMessage name="amount" component="p" />
-				</Form>
-			)}
-		</Formik>
+			<button onClick={handleSubmit} disabled={!amount}>
+				Purchase
+			</button>
+		</div>
 	);
 }

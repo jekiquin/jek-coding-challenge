@@ -1,11 +1,12 @@
+import PropTypes from 'prop-types';
 import { useCoinContext } from '../context/CoinProvider';
-
-export default function ModalClose() {
-	const { setSelectedCoin, setShowModal } = useCoinContext();
+export default function ModalClose({ setShowModal }) {
+	const { setSelectedCoin, setAmount } = useCoinContext();
 
 	const handleClick = () => {
-		setShowModal(false);
 		setSelectedCoin(null);
+		setAmount(0);
+		setShowModal(false);
 	};
 
 	return (
@@ -16,3 +17,7 @@ export default function ModalClose() {
 		</button>
 	);
 }
+
+ModalClose.propTypes = {
+	setShowModal: PropTypes.func.isRequired
+};

@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
+import Link from 'next/link';
 import { UNITS, useUnitContext } from '../context/UnitProvider';
 
 export default function Header() {
@@ -24,7 +25,9 @@ export default function Header() {
 
 	return (
 		<header className="p-4 flex justify-between">
-			<h1>Coin Market</h1>
+			<Link href="/">
+				<a>Coin Market</a>
+			</Link>
 			<div className="flex">
 				<p>{UNITS.CAD}</p>
 				<div
