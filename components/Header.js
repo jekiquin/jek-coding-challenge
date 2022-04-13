@@ -5,7 +5,6 @@ import { UNITS, useUnitContext } from '../context/UnitProvider';
 function Header() {
 	const { unit, setUnit } = useUnitContext();
 	const [unitChanged, setUnitChanged] = useState(unit !== UNITS.CAD);
-	console.log(unit);
 
 	useEffect(() => {
 		if (unitChanged) {
