@@ -11,7 +11,8 @@ export default function ModalClose({ setShowModal }) {
 
 	return (
 		<button
-			className="absolute top-2 right-2 bg-slate-400 py-2 px-4 rounded-md hover:bg-slate-600 hover:scale-125 transition-all"
+			title="close"
+			className="absolute top-2 right-4 hover:font-bold transition-all"
 			onClick={handleClick}>
 			X
 		</button>

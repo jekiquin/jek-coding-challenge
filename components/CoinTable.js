@@ -33,16 +33,20 @@ function CoinTable() {
 		));
 	}, [coins]);
 
+	const styles = {
+		container: 'paper',
+		table: 'w-full overflow-x-auto',
+		header: 'border-b-4 grid grid-cols-5 px-4 min-w-table'
+	};
+
 	return (
-		<>
-			<section className="w-full  overflow-x-auto">
-				<div className="border-b-4 grid grid-cols-5 px-4 min-w-table">
-					{displayTableHeaders}
-				</div>
+		<div className={styles.container}>
+			<section className={styles.table}>
+				<div className={styles.header}>{displayTableHeaders}</div>
 				{displayCoinSummary}
 			</section>
 			{showModal && <CoinModal setShowModal={setShowModal} />}
-		</>
+		</div>
 	);
 }
 

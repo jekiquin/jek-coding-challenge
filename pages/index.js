@@ -14,7 +14,7 @@ export default function Home() {
 				<meta name="description" content="Technical Challenge from BalloonBox" />
 			</Head>
 			<Header />
-			<main className="container mx-auto px-4">
+			<main className="container mx-auto px-4 md:px-8">
 				<CoinTable />
 			</main>
 		</div>

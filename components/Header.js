@@ -23,18 +23,22 @@ function Header() {
 		[unitChanged]
 	);
 
+	const styles = {
+		header: 'p-4 flex justify-between shadow mb-4 md:mb-8',
+		switcher: 'flex',
+		switchContainer: 'mx-4 w-8 h-full  rounded-lg cursor-pointer overflow-hidden bg-slate-200',
+		switch: `w-4 h-full rounded-xl border bg-slate-800 transition-all${translate}`
+	};
+
 	return (
-		<header className="p-4 flex justify-between">
+		<header className={styles.header}>
 			<Link href="/">
 				<a>Coin Market</a>
 			</Link>
-			<div className="flex">
+			<div className={styles.switcher}>
 				<p>{UNITS.CAD}</p>
-				<div
-					className="mx-4 w-8 h-full  rounded-lg cursor-pointer overflow-hidden bg-slate-200"
-					onClick={handleClick}>
-					<div
-						className={`w-4 h-full rounded-xl border bg-slate-800 transition-all${translate}`}></div>
+				<div className={styles.switchContainer} onClick={handleClick}>
+					<div className={styles.switch}></div>
 				</div>
 				<p>{UNITS.USD}</p>
 			</div>
