@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import validator from 'validator';
 import { useCoinContext } from '../context/CoinProvider';
+import FormField from './FormField';
 
 export default function PurchaseForm() {
 	const { setSelectedCoin, setPurchaseAmount } = useCoinContext();
@@ -51,12 +52,7 @@ export default function PurchaseForm() {
 
 	const displayFormFields = Object.entries(formFields).map((field, idx) => (
 		<Fragment key={idx}>
-			<label className="mr-4" htmlFor={field[0]}>
-				{field[0]}
-			</label>
-			<Field className="border " type={field[1]} name={field[0]} id={field[0]} />
-
-			<ErrorMessage className="text-red-400 font-bold" name={field[0]} component="p" />
+			<FormField label={field[0]} type={field[1]} name={field[0]} />
 		</Fragment>
 	));
 

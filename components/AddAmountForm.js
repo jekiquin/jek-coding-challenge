@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import validator from 'validator';
 import { useCoinContext } from '../context/CoinProvider';
+import FormField from './FormField';
 
 export default function AddAmountForm() {
 	const { selectedCoin, setPurchaseAmount } = useCoinContext();
@@ -31,9 +32,7 @@ export default function AddAmountForm() {
 		<Formik initialValues={initialValues} validate={validate} onSubmit={handleSubmit}>
 			{({ isSubmitting }) => (
 				<Form>
-					<label htmlFor="amount">Amount</label>
-					<Field className="border" type="number" id="amount" name="amount" step="1" />
-					<ErrorMessage className="text-red-400 font-bold" name="amount" component="p" />
+					<FormField label="Amount" type="number" name="amount" />
 					<button type="submit">Purchase</button>
 				</Form>
 			)}
