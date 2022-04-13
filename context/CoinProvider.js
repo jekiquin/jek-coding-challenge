@@ -8,9 +8,9 @@ export const useCoinContext = () => {
 
 export default function CoinProvider({ children }) {
 	const [selectedCoin, setSelectedCoin] = useState(null);
-	const [amount, setAmount] = useState(0);
+	const [purchaseAmount, setPurchaseAmount] = useState(0);
 
-	const value = { selectedCoin, setSelectedCoin, amount, setAmount };
+	const value = { selectedCoin, setSelectedCoin, purchaseAmount, setPurchaseAmount };
 
 	return <CoinContext.Provider value={value}>{children}</CoinContext.Provider>;
 }

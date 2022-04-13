@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types';
 import { useUnitContext } from '../context/UnitProvider';
 import { useCoinContext } from '../context/CoinProvider';
 import { toCurrency } from '../utils/parser';
 
-export default function AmountCounter() {
+export default function AmountCounter({ amount, setAmount }) {
 	const { unit } = useUnitContext();
-	const { selectedCoin, amount, setAmount } = useCoinContext();
+	const { selectedCoin } = useCoinContext();
 
 	const handleIncrement = () => {
 		setAmount((prevAmount) => ++prevAmount);
@@ -29,3 +30,8 @@ export default function AmountCounter() {
 		</div>
 	);
 }
+
+AmountCounter.propTypes = {
+	amount: PropTypes.number.isRequired,
+	setAmount: PropTypes.func.isRequired
+};

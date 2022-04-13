@@ -3,21 +3,23 @@ import { useRouter } from 'next/router';
 import validator from 'validator';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useCoinContext } from '../context/CoinProvider';
-import AmountCounter from '../components/AmountCounter';
+import { useUnitContext } from '../context/UnitProvider';
+import { toCurrency } from '../utils/parser';
 import Loading from '../components/Loading';
 
 export default function Purchase() {
 	const router = useRouter();
-	const { selectedCoin, setSelectedCoin, amount, setAmount } = useCoinContext();
+	const { unit } = useUnitContext();
+	const { selectedCoin, setSelectedCoin, purchaseAmount, setPurchaseAmount } = useCoinContext();
 
 	useEffect(() => {
 		if (!selectedCoin) {
 			setSelectedCoin(JSON.parse(sessionStorage.getItem('purchase')));
-			setAmount(JSON.parse(sessionStorage.getItem('amount')));
+			setPurchaseAmount(JSON.parse(sessionStorage.getItem('amount')));
 		}
 	}, []);
 
-	if (!selectedCoin || !amount) {
+	if (!selectedCoin || !purchaseAmount) {
 		return <Loading />;
 	}
 
@@ -81,16 +83,20 @@ export default function Purchase() {
 
 	const handleReset = () => {
 		sessionStorage.clear();
-		setAmount(0);
+		setPurchaseAmount(0);
 		setSelectedCoin(null);
 		router.push('/');
 	};
+
+	const totalPrice = toCurrency(unit, purchaseAmount * selectedCoin.quote[unit].price);
 
 	return (
 		<main className="container px-4 mx-auto">
 			<h1>Please fill out the form below</h1>
 			<p>Name: {selectedCoin.name}</p>
-			<AmountCounter />
+			<p>Unit Price: {toCurrency(unit, selectedCoin.quote[unit].price)}</p>
+			<p>Amount: {purchaseAmount} units</p>
+			<p>Total: {totalPrice}</p>
 			<Formik
 				initialValues={initialValues}
 				validate={validate}
