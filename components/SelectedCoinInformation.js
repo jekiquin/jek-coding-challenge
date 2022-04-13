@@ -1,13 +1,18 @@
 import { useMemo } from 'react';
 import { useUnitContext } from '../context/UnitProvider';
-import { toCurrency, toFinancial } from '../utils/parser';
+import { dateFormatter, toCurrency, toFinancial } from '../utils/parser';
 
 export default function SelectedCoinInformation({ coin }) {
 	const { unit } = useUnitContext();
 
+	const styles = {
+		container: 'grid gap-2 md:gap-4 md:grid-rows-6 md:grid-flow-col',
+		label: 'font-semibold'
+	};
+
 	const displayInfo = useMemo(() => {
 		if (!coin) return <></>;
-		const { name, circulating_supply, total_supply, max_supply, last_updated, quote } = coin;
+		const { circulating_supply, total_supply, max_supply, last_updated, quote } = coin;
 		const {
 			price,
 			market_cap,
@@ -19,7 +24,7 @@ export default function SelectedCoinInformation({ coin }) {
 		} = quote[unit];
 
 		const values = {
-			Name: name,
+			'Last Updated': dateFormatter(last_updated),
 			'Circulating Supply': circulating_supply,
 			'Total Supply': total_supply,
 			'Max Supply': max_supply,
@@ -34,10 +39,10 @@ export default function SelectedCoinInformation({ coin }) {
 
 		return Object.entries(values).map((value, idx) => (
 			<p key={idx}>
-				{value[0]}: {value[1]}
+				<span className={styles.label}>{value[0]}:</span> {value[1]}
 			</p>
 		));
 	}, [coin, unit]);
 
-	return <div className="grid grid-cols-2 gap-4">{displayInfo}</div>;
+	return <div className={styles.container}>{displayInfo}</div>;
 }
