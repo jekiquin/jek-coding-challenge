@@ -9,11 +9,12 @@ export default function ModalClose({ setShowModal }) {
 		setShowModal(false);
 	};
 
+	const styles = {
+		button: 'absolute top-2 right-4 hover:font-bold transition-all'
+	};
+
 	return (
-		<button
-			title="close"
-			className="absolute top-2 right-4 hover:font-bold transition-all"
-			onClick={handleClick}>
+		<button title="close" className={styles.button} onClick={handleClick}>
 			X
 		</button>
 	);

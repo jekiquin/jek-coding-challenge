@@ -26,10 +26,12 @@ export default function CoinRow({ coin, setShowModal }) {
 		setShowModal(true);
 	};
 
+	const styles = {
+		container: 'border-b-2 p-4 min-w-table grid grid-cols-5 cursor-pointer hover:bg-slate-200'
+	};
+
 	return (
-		<div
-			className="border-b-2 p-4 min-w-table grid grid-cols-5 cursor-pointer hover:bg-slate-200"
-			onClick={handleClick}>
+		<div className={styles.container} onClick={handleClick}>
 			{displayInformation}
 		</div>
 	);

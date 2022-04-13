@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import Loading from '../components/Loading';
+import MainContainer from '../components/MainContainer';
 import { useCoinContext } from '../context/CoinProvider';
 
 const FAILRATE = 0.2;
@@ -40,7 +41,7 @@ export default function Result() {
 	if (isLoading) return <Loading />;
 
 	return (
-		<main className="container mx-auto">
+		<MainContainer>
 			{isSuccess ? (
 				<>
 					<h1>Transaction Complete!</h1>
@@ -53,6 +54,6 @@ export default function Result() {
 					<button onClick={handleBack}>Back to Purchase</button>
 				</>
 			)}
-		</main>
+		</MainContainer>
 	);
 }

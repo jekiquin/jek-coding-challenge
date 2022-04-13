@@ -2,18 +2,22 @@ import PropTypes from 'prop-types';
 import { Form, Formik } from 'formik';
 
 export default function CustomForm({ formikProps, submitLabel, resetLabel, children }) {
+	const styles = {
+		button: 'btn'
+	};
+
 	return (
 		<Formik {...formikProps}>
 			{({ isSubmitting }) => (
 				<Form>
 					{children}
 					{formikProps.onSubmit && (
-						<button className="btn" type="submit" disabled={isSubmitting}>
+						<button className={styles.button} type="submit" disabled={isSubmitting}>
 							{submitLabel}
 						</button>
 					)}
 					{formikProps.onReset && (
-						<button className="btn" type="reset" disabled={isSubmitting}>
+						<button className={styles.button} type="reset" disabled={isSubmitting}>
 							{resetLabel}
 						</button>
 					)}

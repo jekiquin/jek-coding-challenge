@@ -1,17 +1,20 @@
 import PropTypes from 'prop-types';
 import { ErrorMessage, Field } from 'formik';
-import { toProperCase } from '../utils/parser';
 
 export default function FormField({ label, type, name }) {
+	const styles = {
+		container: 'mt-4',
+		label: 'capitalize block',
+		field: 'mr-4 border w-full max-w-xs pl-2',
+		error: 'italic text-red-400 font-medium'
+	};
 	return (
-		<div className="mt-4">
-			<label className="capitalize block" htmlFor={name}>
+		<div className={styles.container}>
+			<label className={styles.label} htmlFor={name}>
 				{label}
-			</label>
-			<div className="flex">
-				<Field className="mr-4 border" type={type} name={name} id={name} />
-				<ErrorMessage className="text-red-400 font-medium" name={name} component="p" />
-			</div>
+			</label>{' '}
+			<ErrorMessage className={styles.error} name={name} component="p" />
+			<Field className={styles.field} type={type} name={name} id={name} />
 		</div>
 	);
 }
