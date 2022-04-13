@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import validator from 'validator';
 import { useCoinContext } from '../context/CoinProvider';
 import FormField from './FormField';
-import CustomForm from './StyledForm';
+import CustomForm from './CustomForm';
 
 export default function PurchaseForm() {
 	const { setSelectedCoin, setPurchaseAmount } = useCoinContext();

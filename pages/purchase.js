@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useCoinContext } from '../context/CoinProvider';
 import { useUnitContext } from '../context/UnitProvider';
 import { toCurrency } from '../utils/parser';
@@ -17,24 +17,47 @@ export default function Purchase() {
 		}
 	}, []);
 
+	const displayPurchaseInfo = useMemo(() => {
+		const flatPrice = selectedCoin?.quote[unit].price || 0;
+		const totalPrice = toCurrency(unit, purchaseAmount * flatPrice);
+		const infoList = [
+			{
+				label: 'Unit Price',
+				value: toCurrency(unit, flatPrice)
+			},
+			{
+				label: 'Amount',
+				value: purchaseAmount
+			},
+			{
+				label: 'Total',
+				value: totalPrice
+			}
+		];
+
+		return infoList.map((info, idx) => (
+			<p key={idx}>
+				<span>{info.label}: </span>
+				{info.value}
+			</p>
+		));
+	}, [unit, selectedCoin, purchaseAmount]);
+
 	if (!selectedCoin || !purchaseAmount) {
 		return <Loading />;
 	}
 
-	const totalPrice = toCurrency(unit, purchaseAmount * selectedCoin.quote[unit].price);
-
 	const styles = {
-		container: 'paper mt-4 md: mt-8'
+		container: 'paper mt-4 md: mt-8',
+		header: 'text-2xl md:text3-xl'
 	};
 
 	return (
 		<MainContainer>
 			<div className={styles.container}>
 				<section>
-					<h1>Purchasing: {selectedCoin.name}</h1>
-					<p>Unit Price: {toCurrency(unit, selectedCoin.quote[unit].price)}</p>
-					<p>Amount: {purchaseAmount} units</p>
-					<p>Total: {totalPrice}</p>
+					<h1 className={styles.header}>Purchasing: {selectedCoin.name}</h1>
+					{displayPurchaseInfo}
 				</section>
 				<section>
 					<h2>Please fill out the form below</h2>

@@ -3,7 +3,8 @@ import { Form, Formik } from 'formik';
 
 export default function CustomForm({ formikProps, submitLabel, resetLabel, formStyles, children }) {
 	const styles = {
-		button: 'btn'
+		button: 'btn',
+		buttonGroup: 'mt-4 flex gap-4'
 	};
 
 	return (
@@ -11,16 +12,18 @@ export default function CustomForm({ formikProps, submitLabel, resetLabel, formS
 			{({ isSubmitting }) => (
 				<Form className={formStyles}>
 					{children}
-					{formikProps.onSubmit && (
-						<button className={styles.button} type="submit" disabled={isSubmitting}>
-							{submitLabel}
-						</button>
-					)}
-					{formikProps.onReset && (
-						<button className={styles.button} type="reset" disabled={isSubmitting}>
-							{resetLabel}
-						</button>
-					)}
+					<div className={styles.buttonGroup}>
+						{formikProps.onSubmit && (
+							<button className={styles.button} type="submit" disabled={isSubmitting}>
+								{submitLabel}
+							</button>
+						)}
+						{formikProps.onReset && (
+							<button className={styles.button} type="reset" disabled={isSubmitting}>
+								{resetLabel}
+							</button>
+						)}
+					</div>
 				</Form>
 			)}
 		</Formik>
@@ -34,7 +37,7 @@ CustomForm.propTypes = {
 	formStyles: PropTypes.string
 };
 
-CustomForm.propTypes = {
+CustomForm.defaultProps = {
 	submitLabel: 'Submit',
 	resetLabel: 'Reset',
 	formStyles: ''

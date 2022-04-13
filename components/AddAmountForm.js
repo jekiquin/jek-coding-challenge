@@ -5,7 +5,7 @@ import { useCoinContext } from '../context/CoinProvider';
 import { useUnitContext } from '../context/UnitProvider';
 import { toCurrency } from '../utils/parser';
 import FormField from './FormField';
-import StyledForm from './StyledForm';
+import CustomForm from './CustomForm';
 
 export default function AddAmountForm() {
 	const { selectedCoin, setPurchaseAmount } = useCoinContext();
@@ -37,10 +37,10 @@ export default function AddAmountForm() {
 	};
 
 	return (
-		<StyledForm formikProps={formikProps} submitLabel="Purchase" formStyles={styles.form}>
+		<CustomForm formikProps={formikProps} submitLabel="Purchase" formStyles={styles.form}>
 			<FormField label="Amount to Purchase" type="number" name="amount" />
 			<FormObserver flatPrice={selectedCoin.quote[unit].price} />
-		</StyledForm>
+		</CustomForm>
 	);
 }
 
