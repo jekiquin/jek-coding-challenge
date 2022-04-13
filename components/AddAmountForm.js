@@ -33,7 +33,9 @@ export default function AddAmountForm() {
 			{({ isSubmitting }) => (
 				<Form>
 					<FormField label="Amount" type="number" name="amount" />
-					<button type="submit">Purchase</button>
+					<button className="btn" type="submit">
+						Purchase
+					</button>
 				</Form>
 			)}
 		</Formik>

@@ -7,13 +7,13 @@ export default function CustomForm({ formikProps, submitLabel, resetLabel, child
 			{({ isSubmitting }) => (
 				<Form>
 					{children}
-					{formikProps.handleSubmit && (
-						<button type="submit" disabled={isSubmitting}>
+					{formikProps.onSubmit && (
+						<button className="btn" type="submit" disabled={isSubmitting}>
 							{submitLabel}
 						</button>
 					)}
-					{formikProps.handleReset && (
-						<button type="reset" disabled={isSubmitting}>
+					{formikProps.onReset && (
+						<button className="btn" type="reset" disabled={isSubmitting}>
 							{resetLabel}
 						</button>
 					)}

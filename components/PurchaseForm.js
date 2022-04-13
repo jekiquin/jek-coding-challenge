@@ -56,12 +56,12 @@ export default function PurchaseForm() {
 
 			return errors;
 		},
-		handleSubmit: (values, { setSubmitting }) => {
+		onSubmit: (values, { setSubmitting }) => {
 			sessionStorage.setItem('form', JSON.stringify(values));
 			setSubmitting(false);
 			router.push('/result-page');
 		},
-		handleReset: () => {
+		onReset: () => {
 			sessionStorage.clear();
 			setPurchaseAmount(0);
 			setSelectedCoin(null);
@@ -70,7 +70,7 @@ export default function PurchaseForm() {
 	};
 
 	return (
-		<CustomForm formikProps={formikProps} submitLabel="Submit" resetLabel="Reset">
+		<CustomForm formikProps={formikProps} submitLabel="Submit" resetLabel="Cancel">
 			{displayFormFields}
 		</CustomForm>
 	);

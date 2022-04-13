@@ -1,6 +1,6 @@
 import CoinProvider from '../context/CoinProvider';
 import UnitProvider from '../context/UnitProvider';
-import '../styles/globals.css';
+import '../styles/globals.scss';
 
 function MyApp({ Component, pageProps }) {
 	return (
