@@ -18,7 +18,7 @@ export default function Purchase() {
 	}, []);
 
 	const displayPurchaseInfo = useMemo(() => {
-		const flatPrice = selectedCoin?.quote[unit].price || 0;
+		const flatPrice = selectedCoin?.quote[unit]?.price || 0;
 		const totalPrice = toCurrency(unit, purchaseAmount * flatPrice);
 		const infoList = [
 			{
@@ -60,7 +60,6 @@ export default function Purchase() {
 					{displayPurchaseInfo}
 				</section>
 				<section>
-					<h2>Please fill out the form below</h2>
 					<PurchaseForm />
 				</section>
 			</div>

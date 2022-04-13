@@ -1,9 +1,7 @@
-import { useMemo } from 'react';
-import { useFormikContext } from 'formik';
 import { useRouter } from 'next/router';
 import { useCoinContext } from '../context/CoinProvider';
 import { useUnitContext } from '../context/UnitProvider';
-import { toCurrency } from '../utils/parser';
+import FormObserver from './FormObserver';
 import FormField from './FormField';
 import CustomForm from './CustomForm';
 
@@ -41,28 +39,5 @@ export default function AddAmountForm() {
 			<FormField label="Amount to Purchase" type="number" name="amount" />
 			<FormObserver flatPrice={selectedCoin.quote[unit].price} />
 		</CustomForm>
-	);
-}
-
-function FormObserver({ flatPrice }) {
-	const { values } = useFormikContext();
-	const { unit } = useUnitContext();
-
-	const total = useMemo(() => {
-		if (values.amount <= 0) {
-			return toCurrency(unit, 0);
-		}
-
-		return toCurrency(unit, flatPrice * values.amount);
-	}, [values, flatPrice, unit]);
-
-	const styles = {
-		container: 'my-2'
-	};
-
-	return (
-		<div className={styles.container}>
-			<p>Total: {total}</p>
-		</div>
 	);
 }
