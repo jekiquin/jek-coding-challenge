@@ -8,7 +8,7 @@ const FAILRATE = 0.2;
 export default function Result() {
 	const [isSuccess, setIsSuccess] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
-	const { setSelectedCoin, setAmount } = useCoinContext();
+	const { setSelectedCoin, setPurchaseAmount } = useCoinContext();
 	const router = useRouter();
 
 	useEffect(() => {
@@ -18,7 +18,7 @@ export default function Result() {
 			if (rate > FAILRATE) {
 				setIsSuccess(true);
 				setSelectedCoin(null);
-				setAmount(0);
+				setPurchaseAmount(0);
 				sessionStorage.clear();
 			}
 			setIsLoading(false);

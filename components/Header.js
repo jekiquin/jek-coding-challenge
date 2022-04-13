@@ -3,8 +3,9 @@ import Link from 'next/link';
 import { UNITS, useUnitContext } from '../context/UnitProvider';
 
 function Header() {
-	const [unitChanged, setUnitChanged] = useState(false);
-	const { setUnit } = useUnitContext();
+	const { unit, setUnit } = useUnitContext();
+	const [unitChanged, setUnitChanged] = useState(unit !== UNITS.CAD);
+	console.log(unit);
 
 	useEffect(() => {
 		if (unitChanged) {
