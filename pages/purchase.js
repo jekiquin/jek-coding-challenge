@@ -5,6 +5,7 @@ import { useUnitContext } from '../context/UnitProvider';
 import { toCurrency } from '../utils/parser';
 import PurchaseForm from '../components/PurchaseForm';
 import MainContainer from '../components/MainContainer';
+import Loading from '../components/Loading';
 
 export default function Purchase() {
 	const { unit } = useUnitContext();
@@ -46,12 +47,11 @@ export default function Purchase() {
 	}, [unit, selectedCoin, purchaseAmount]);
 
 	if (!selectedCoin || !purchaseAmount) {
-		router.push('/');
-		return null;
+		return <Loading />;
 	}
 
 	const styles = {
-		container: 'paper mt-4 md: mt-8',
+		container: 'paper mt-4 mx-auto max-w-2xl md:mt-8',
 		header: 'text-2xl md:text3-xl'
 	};
 

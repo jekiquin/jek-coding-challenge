@@ -4,7 +4,7 @@ import { Form, Formik } from 'formik';
 export default function CustomForm({ formikProps, submitLabel, resetLabel, formStyles, children }) {
 	const styles = {
 		button: 'btn',
-		buttonGroup: 'mt-4 flex gap-4'
+		buttonGroup: 'mt-4 flex gap-4 flex-wrap'
 	};
 
 	return (

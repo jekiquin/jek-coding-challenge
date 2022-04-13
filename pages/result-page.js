@@ -4,7 +4,7 @@ import Loading from '../components/Loading';
 import MainContainer from '../components/MainContainer';
 import { useCoinContext } from '../context/CoinProvider';
 
-const FAILRATE = 0.5;
+const FAILRATE = 0;
 
 export default function Result() {
 	const [isSuccess, setIsSuccess] = useState(false);
@@ -13,21 +13,31 @@ export default function Result() {
 	const router = useRouter();
 
 	useEffect(() => {
-		const rate = sessionStorage.getItem('success-rate')
-			? Number(sessionStorage.getItem('success-rate'))
-			: Math.random();
-		const timer = Math.random() * 1000;
-		const timeOut = setTimeout(() => {
-			if (rate > FAILRATE) {
+		let timeOut, successRate;
+		const prevSuccessRate = sessionStorage.getItem('success-rate');
+
+		const setStates = (successRate) => {
+			if (successRate > FAILRATE) {
 				setIsSuccess(true);
 				setSelectedCoin(null);
 				setPurchaseAmount(0);
 				sessionStorage.clear();
 			}
 			setIsLoading(false);
-		}, timer);
+		};
 
-		sessionStorage.setItem('success-rate', `${rate}`);
+		if (prevSuccessRate) {
+			successRate = Number(prevSuccessRate);
+			setStates(successRate);
+		} else {
+			successRate = Math.random();
+			const timer = Math.random() * 1000;
+			const timeOut = setTimeout(() => {
+				setStates(successRate);
+			}, timer);
+		}
+
+		sessionStorage.setItem('success-rate', `${successRate}`);
 
 		return () => {
 			clearTimeout(timeOut);
