@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Form, Formik } from 'formik';
 
-export default function CustomForm({ formikProps, submitLabel, resetLabel, children }) {
+export default function CustomForm({ formikProps, submitLabel, resetLabel, formStyles, children }) {
 	const styles = {
 		button: 'btn'
 	};
@@ -9,7 +9,7 @@ export default function CustomForm({ formikProps, submitLabel, resetLabel, child
 	return (
 		<Formik {...formikProps}>
 			{({ isSubmitting }) => (
-				<Form>
+				<Form className={formStyles}>
 					{children}
 					{formikProps.onSubmit && (
 						<button className={styles.button} type="submit" disabled={isSubmitting}>
@@ -30,10 +30,12 @@ export default function CustomForm({ formikProps, submitLabel, resetLabel, child
 CustomForm.propTypes = {
 	formikProps: PropTypes.object.isRequired,
 	submitLabel: PropTypes.string,
-	resetLabel: PropTypes.string
+	resetLabel: PropTypes.string,
+	formStyles: PropTypes.string
 };
 
 CustomForm.propTypes = {
 	submitLabel: 'Submit',
-	resetLabel: 'Reset'
+	resetLabel: 'Reset',
+	formStyles: ''
 };

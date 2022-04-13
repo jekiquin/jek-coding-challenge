@@ -23,14 +23,24 @@ export default function Purchase() {
 
 	const totalPrice = toCurrency(unit, purchaseAmount * selectedCoin.quote[unit].price);
 
+	const styles = {
+		container: 'paper mt-4 md: mt-8'
+	};
+
 	return (
 		<MainContainer>
-			<h1>Please fill out the form below</h1>
-			<p>Name: {selectedCoin.name}</p>
-			<p>Unit Price: {toCurrency(unit, selectedCoin.quote[unit].price)}</p>
-			<p>Amount: {purchaseAmount} units</p>
-			<p>Total: {totalPrice}</p>
-			<PurchaseForm />
+			<div className={styles.container}>
+				<section>
+					<h1>Purchasing: {selectedCoin.name}</h1>
+					<p>Unit Price: {toCurrency(unit, selectedCoin.quote[unit].price)}</p>
+					<p>Amount: {purchaseAmount} units</p>
+					<p>Total: {totalPrice}</p>
+				</section>
+				<section>
+					<h2>Please fill out the form below</h2>
+					<PurchaseForm />
+				</section>
+			</div>
 		</MainContainer>
 	);
 }

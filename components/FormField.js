@@ -12,7 +12,7 @@ export default function FormField({ label, type, name }) {
 		<div className={styles.container}>
 			<label className={styles.label} htmlFor={name}>
 				{label}
-			</label>{' '}
+			</label>
 			<ErrorMessage className={styles.error} name={name} component="p" />
 			<Field className={styles.field} type={type} name={name} id={name} />
 		</div>

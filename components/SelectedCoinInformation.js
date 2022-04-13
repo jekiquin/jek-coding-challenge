@@ -1,8 +1,8 @@
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useUnitContext } from '../context/UnitProvider';
 import { dateFormatter, toCurrency, toFinancial } from '../utils/parser';
 
-export default function SelectedCoinInformation({ coin }) {
+function SelectedCoinInformation({ coin }) {
 	const { unit } = useUnitContext();
 
 	const styles = {
@@ -25,16 +25,16 @@ export default function SelectedCoinInformation({ coin }) {
 
 		const values = {
 			'Last Updated': dateFormatter(last_updated),
-			'Circulating Supply': circulating_supply,
-			'Total Supply': total_supply,
-			'Max Supply': max_supply,
 			Price: toCurrency(unit, price),
 			'Market Cap': toCurrency(unit, market_cap),
 			'Market Cap Dominance': market_cap_dominance,
 			'Fully Diluted Market Cap': toCurrency(unit, fully_diluted_market_cap),
 			'24h%': toFinancial(percent_change_24h),
 			'7d%': toFinancial(percent_change_7d),
-			'Volume 24h': toCurrency(unit, volume_24h)
+			'Volume 24h': toCurrency(unit, volume_24h),
+			'Circulating Supply': circulating_supply,
+			'Total Supply': total_supply,
+			'Max Supply': max_supply
 		};
 
 		return Object.entries(values).map((value, idx) => (
@@ -46,3 +46,5 @@ export default function SelectedCoinInformation({ coin }) {
 
 	return <div className={styles.container}>{displayInfo}</div>;
 }
+
+export default React.memo(SelectedCoinInformation);
