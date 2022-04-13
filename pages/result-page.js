@@ -4,7 +4,7 @@ import Loading from '../components/Loading';
 import MainContainer from '../components/MainContainer';
 import { useCoinContext } from '../context/CoinProvider';
 
-const FAILRATE = 0;
+const FAILRATE = 0.2;
 
 export default function Result() {
 	const [isSuccess, setIsSuccess] = useState(false);
