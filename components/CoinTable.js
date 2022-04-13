@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useUnitContext } from '../context/UnitProvider';
 import CoinRow from './CoinRow';
 import CoinModal from './CoinModal';
+import Loading from './Loading';
 
 function CoinTable() {
 	const [coins, setCoins] = useState(null);
@@ -27,7 +28,7 @@ function CoinTable() {
 	}, []);
 
 	const displayCoinSummary = useMemo(() => {
-		if (!coins) return;
+		if (!coins) return <Loading />;
 		return coins.map((coin) => (
 			<CoinRow key={coin.id} coin={coin} setShowModal={setShowModal} />
 		));

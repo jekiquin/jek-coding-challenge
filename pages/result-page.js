@@ -4,7 +4,7 @@ import Loading from '../components/Loading';
 import MainContainer from '../components/MainContainer';
 import { useCoinContext } from '../context/CoinProvider';
 
-const FAILRATE = 0.2;
+const FAILRATE = 0.5;
 
 export default function Result() {
 	const [isSuccess, setIsSuccess] = useState(false);
@@ -13,7 +13,9 @@ export default function Result() {
 	const router = useRouter();
 
 	useEffect(() => {
-		const rate = Math.random();
+		const rate = sessionStorage.getItem('success-rate')
+			? Number(sessionStorage.getItem('success-rate'))
+			: Math.random();
 		const timer = Math.random() * 1000;
 		const timeOut = setTimeout(() => {
 			if (rate > FAILRATE) {
@@ -25,6 +27,8 @@ export default function Result() {
 			setIsLoading(false);
 		}, timer);
 
+		sessionStorage.setItem('success-rate', `${rate}`);
+
 		return () => {
 			clearTimeout(timeOut);
 		};
@@ -32,28 +36,41 @@ export default function Result() {
 
 	const handleHome = () => {
 		router.push('/');
+		sessionStorage.clear();
 	};
 
 	const handleBack = () => {
 		router.push('/purchase');
+		sessionStorage.removeItem('success-rate');
 	};
 
 	if (isLoading) return <Loading />;
 
+	const styles = {
+		container: `paper mt-28 flex flex-col items-center ${isSuccess ? 'bg-success' : 'bg-fail'}`,
+		button: 'btn'
+	};
+
 	return (
 		<MainContainer>
-			{isSuccess ? (
-				<>
-					<h1>Transaction Complete!</h1>
-					<p>Thank You!</p>
-					<button onClick={handleHome}>Home</button>
-				</>
-			) : (
-				<>
-					<h1>Error during transaction</h1>
-					<button onClick={handleBack}>Back to Purchase</button>
-				</>
-			)}
+			<section className={styles.container}>
+				{isSuccess ? (
+					<>
+						<h1>Transaction Successful!</h1>
+						<p>Thank You!</p>
+						<button className={styles.button} onClick={handleHome}>
+							Home
+						</button>
+					</>
+				) : (
+					<>
+						<h1>Error During Transaction!</h1>
+						<button className={styles.button} onClick={handleBack}>
+							Back to Purchase
+						</button>
+					</>
+				)}
+			</section>
 		</MainContainer>
 	);
 }

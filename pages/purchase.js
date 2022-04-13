@@ -1,20 +1,22 @@
 import { useEffect, useMemo } from 'react';
+import { useRouter } from 'next/router';
 import { useCoinContext } from '../context/CoinProvider';
 import { useUnitContext } from '../context/UnitProvider';
 import { toCurrency } from '../utils/parser';
-import Loading from '../components/Loading';
 import PurchaseForm from '../components/PurchaseForm';
 import MainContainer from '../components/MainContainer';
 
 export default function Purchase() {
 	const { unit } = useUnitContext();
 	const { selectedCoin, setSelectedCoin, purchaseAmount, setPurchaseAmount } = useCoinContext();
+	const router = useRouter();
 
 	useEffect(() => {
 		if (!selectedCoin) {
 			setSelectedCoin(JSON.parse(sessionStorage.getItem('purchase')));
 			setPurchaseAmount(JSON.parse(sessionStorage.getItem('amount')));
 		}
+		sessionStorage.removeItem('success-rate');
 	}, []);
 
 	const displayPurchaseInfo = useMemo(() => {
@@ -44,7 +46,8 @@ export default function Purchase() {
 	}, [unit, selectedCoin, purchaseAmount]);
 
 	if (!selectedCoin || !purchaseAmount) {
-		return <Loading />;
+		router.push('/');
+		return null;
 	}
 
 	const styles = {
